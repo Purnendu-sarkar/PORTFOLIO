@@ -1,8 +1,10 @@
+import Navbar from "./components/layout/Navbar";
+
 function App() {
   return (
-    <>
-      <h1>This is my Portfolio</h1>
-    </>
+    <div className="container mx-auto">
+      <Navbar />
+    </div>
   );
 }
 
