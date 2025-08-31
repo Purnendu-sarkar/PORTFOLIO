@@ -2,6 +2,7 @@ import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import BlurBlob from "./constants/BlurBlob";
 import About from "./Pages/About/About";
+import Blog from "./Pages/Blog/Blog";
 import Contact from "./Pages/Contact/Contact";
 import Education from "./Pages/Education/Education";
 import Projects from "./Pages/Projects/Projects";
@@ -22,6 +23,7 @@ function App() {
         <Skills />
         <Projects />
         <Education />
+        <Blog />
         <Contact />
         <Footer />
       </div>
