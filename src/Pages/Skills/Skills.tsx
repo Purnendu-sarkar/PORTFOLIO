@@ -7,7 +7,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative py-24 px-6 md:px-10 lg:px-20 bg-gradient-to-b from-background to-muted/30"
+      className="py-24 pb-24 container mx-auto font-sans bg-skills-gradient clip-path-custom"
     >
       {/* Glow Background Effect */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -23,10 +23,10 @@ export default function Skills() {
         transition={{ duration: 0.7 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
           🚀 Skills
         </h2>
-        <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 mx-auto mt-3 rounded-full shadow-lg" />
+        <div className="w-32 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 mx-auto mt-3 rounded-full shadow-lg" />
         <p className="text-muted-foreground mt-4 text-lg max-w-2xl mx-auto">
           A collection of my technical skills and expertise honed through
           various projects and experiences.

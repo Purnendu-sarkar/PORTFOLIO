@@ -14,11 +14,12 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <section id="projects" className="py-20 px-6 md:px-10 lg:px-20 ">
+    <section id="projects" className="container mx-auto py-20 px-2 ">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
           🚀 Projects
         </h2>
+        <div className="w-32 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 mx-auto mt-3 rounded-full shadow-lg" />
         <p className="text-muted-foreground mt-4 text-lg max-w-2xl mx-auto">
           A showcase of the projects I have worked on, highlighting my skills
           and experience.
