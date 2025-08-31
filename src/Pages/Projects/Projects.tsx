@@ -107,7 +107,7 @@ export default function Projects() {
                   {selectedProject.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="text-xs px-3 py-1 rounded-full bg-foreground transition"
+                      className="text-xs px-3 py-1 rounded-full bg-foreground text-white transition"
                     >
                       {tech}
                     </span>

@@ -1,7 +1,7 @@
 import Wallet from "@/assets/projects/Digital-Wallet.png";
 import SwiftRent from "@/assets/projects/SwiftRent.png";
-import MediCamp from "@/assets/projects/medicamp.png";
-import Volunteer from "@/assets/projects/Volunteer Connect.png";
+import MediCamp from "@/assets/projects/MediCamp.png";
+import Volunteer from "@/assets/projects/VolunteerConnect.png";
 
 export interface Project {
   id: number;
