@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
+  const form = useRef<HTMLFormElement | null>(null);
+
   const [formData, setFormData] = useState({
     user_email: "",
     user_name: "",
@@ -12,22 +15,37 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    toast.success("Message sent successfully!", {
-      description: "Thank you for reaching out! I'll get back to you soon.",
-      action: {
-        label: "Undo",
-        onClick: () => toast.info("Undo action not implemented."),
-      },
-    });
 
-    setFormData({
-      user_email: "",
-      user_name: "",
-      subject: "",
-      message: "",
-    });
+    if (!form.current) return;
+
+    emailjs
+      .sendForm(
+        "service_u7m8t3e", 
+        "template_b4fmcku", 
+        form.current,
+        "U0TjnH4hiEr0BUQQu"
+      )
+      .then(
+        () => {
+          toast.success("Message sent successfully!", {
+            description:
+              "Thank you for reaching out! I'll get back to you soon.",
+          });
+          setFormData({
+            user_email: "",
+            user_name: "",
+            subject: "",
+            message: "",
+          });
+        },
+        (error) => {
+          toast.error("Failed to send message!", {
+            description: error.text,
+          });
+        }
+      );
   };
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,13 +60,6 @@ export default function Contact() {
       className="flex flex-col items-center justify-center py-24 px-[12vw] md:px-[7vw] lg:px-[20vw]"
       style={{ fontFamily: "Poppins, sans-serif" }}
     >
-      <section
-        className="Toastify"
-        aria-live="polite"
-        aria-atomic="false"
-        aria-relevant="additions text"
-        aria-label="Notifications Alt+T"
-      ></section>
       <div className="text-center mb-16">
         <h2 className="text-4xl font-bold text-white">CONTACT</h2>
         <div className="w-32 h-1 bg-purple-500 mx-auto mt-4"></div>
@@ -61,7 +72,13 @@ export default function Contact() {
         <h3 className="text-xl font-semibold text-white text-center">
           Connect With Me <span className="ml-1">🚀</span>
         </h3>
-        <form onSubmit={handleSubmit} className="mt-4 flex flex-col space-y-4">
+
+        {/* Contact Form */}
+        <form
+          ref={form}
+          onSubmit={handleSubmit}
+          className="mt-4 flex flex-col space-y-4"
+        >
           <input
             type="email"
             name="user_email"
@@ -105,6 +122,28 @@ export default function Contact() {
             Send
           </Button>
         </form>
+
+        {/* Direct Contact Info */}
+        <div className="text-gray-300 text-center mt-6">
+          <p>
+            Email:{" "}
+            <a
+              href="mailto:dsr102.purnendu@gmail.com"
+              className="text-purple-400 hover:underline"
+            >
+              dsr102.purnendu@gmail.com
+            </a>
+          </p>
+          <p>
+            Phone:{" "}
+            <a
+              href="tel:+8801409012843"
+              className="text-purple-400 hover:underline"
+            >
+              +8801409012843
+            </a>
+          </p>
+        </div>
       </div>
     </section>
   );
