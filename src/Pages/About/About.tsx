@@ -7,7 +7,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-4 container mx-auto font-sans mt-16 md:mt-24 lg:mt-32"
+      className="container mx-auto font-sans py-20 px-12"
     >
       <div className="flex flex-col-reverse md:flex-row justify-between items-center">
         {/* Left Side */}

@@ -1,8 +1,9 @@
+"use client";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import {
@@ -12,22 +13,44 @@ import {
 } from "@/components/ui/popover";
 import { GithubIcon } from "../ui/GithubIcon";
 import { LinkedInIcon } from "../ui/LinkedinIcon";
-import { useState } from "react";
 
-// Navigation links array
 const navigationLinks = [
-  { href: "#", label: "About" },
-  { href: "#", label: "Skills" },
-  { href: "#", label: "Projects" },
-  { href: "#", label: "Contact" },
+  { href: "about", label: "About" },
+  { href: "skills", label: "Skills" },
+  { href: "projects", label: "Projects" },
+  { href: "contact", label: "Contact" },
 ];
 
 export default function Navbar() {
   const [activeLink, setActiveLink] = useState("About");
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleLinkClick = (id: string, label: string) => {
+    setActiveLink(label);
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <header className="container mx-auto border-b px-4 md:px-6">
-      <div className="flex h-16 items-center justify-between gap-4 w-full">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 
+      ${
+        isScrolled
+          ? "bg-[#050414] bg-opacity-70 backdrop-blur-md shadow-md"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         {/* Left side - Mobile Menu + Logo */}
         <div className="flex items-center gap-2">
           {/* Mobile menu trigger */}
@@ -38,10 +61,11 @@ export default function Navbar() {
                 variant="ghost"
                 size="icon"
               >
+                {/* Hamburger to X */}
                 <svg
                   className="pointer-events-none"
-                  width={16}
-                  height={16}
+                  width={20}
+                  height={20}
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -52,35 +76,37 @@ export default function Navbar() {
                 >
                   <path
                     d="M4 12L20 12"
-                    className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
+                    className="origin-center -translate-y-[7px] transition-all duration-300 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
                   />
                   <path
                     d="M4 12H20"
-                    className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
+                    className="origin-center transition-all duration-300 group-aria-expanded:rotate-45"
                   />
                   <path
                     d="M4 12H20"
-                    className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
+                    className="origin-center translate-y-[7px] transition-all duration-300 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
                   />
                 </svg>
               </Button>
             </PopoverTrigger>
-            <PopoverContent align="start" className="w-36 p-1 md:hidden">
+            <PopoverContent
+              align="start"
+              className="w-40 p-2 md:hidden bg-[#050414] bg-opacity-80 text-white rounded-lg"
+            >
               <NavigationMenu className="max-w-none *:w-full">
-                <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
+                <NavigationMenuList className="flex-col items-start gap-2">
                   {navigationLinks.map((link, index) => (
                     <NavigationMenuItem key={index} className="w-full">
-                      <NavigationMenuLink
-                        href={link.href}
-                        onClick={() => setActiveLink(link.label)}
-                        className={`py-1.5 font-medium transition-colors ${
+                      <button
+                        onClick={() => handleLinkClick(link.href, link.label)}
+                        className={`block w-full text-left py-1.5 font-medium transition-colors ${
                           activeLink === link.label
                             ? "text-[#8245ec] border-b-2 border-[#8245ec]"
-                            : "text-muted-foreground hover:text-primary"
+                            : "text-gray-300 hover:text-[#8245ec]"
                         }`}
                       >
                         {link.label}
-                      </NavigationMenuLink>
+                      </button>
                     </NavigationMenuItem>
                   ))}
                 </NavigationMenuList>
@@ -98,22 +124,21 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Navigation menu - Desktop only */}
+        {/* Desktop Menu */}
         <NavigationMenu className="hidden md:flex mx-auto">
           <NavigationMenuList className="gap-6">
             {navigationLinks.map((link, index) => (
               <NavigationMenuItem key={index}>
-                <NavigationMenuLink
-                  href={link.href}
-                  onClick={() => setActiveLink(link.label)}
+                <button
+                  onClick={() => handleLinkClick(link.href, link.label)}
                   className={`py-1.5 font-medium transition-colors ${
                     activeLink === link.label
                       ? "text-[#8245ec] border-b-2 border-[#8245ec]"
-                      : "text-muted-foreground hover:text-primary"
+                      : "text-gray-300 hover:text-[#8245ec]"
                   }`}
                 >
                   {link.label}
-                </NavigationMenuLink>
+                </button>
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
