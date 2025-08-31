@@ -1,6 +1,7 @@
 import Navbar from "./components/layout/Navbar";
 import BlurBlob from "./constants/BlurBlob";
 import About from "./Pages/About/About";
+import Education from "./Pages/Education/Education";
 import Projects from "./Pages/Projects/Projects";
 import Skills from "./Pages/Skills/Skills";
 
@@ -18,6 +19,7 @@ function App() {
         <About />
         <Skills />
         <Projects />
+        <Education />
       </div>
     </div>
   );
